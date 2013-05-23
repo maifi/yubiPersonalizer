@@ -1,32 +1,47 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".YubikeyPersonalisation" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name" />
+
+    
+        <EditText
+        android:id="@+id/tf_name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meeee" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Company" />
+
+    <EditText
+        android:id="@+id/tf_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PrivateCompany" />
+
     <Button
         android:id="@+id/genCert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="49dp"
-        android:layout_marginTop="34dp"
-        android:text="GenerateCert" 
-        android:onClick="clickedGenCert" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="70dp"
+        android:onClick="clickedGenCert"
+        android:text="GenerateCert" />
 
-    <Button
-        android:id="@+id/sendToYubi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/genCert"
-        android:layout_below="@+id/genCert"
-        android:layout_marginTop="29dp"
-        android:text="Send to Yubi" 
-        android:onClick="clickedSendToYubi" />
-
-</RelativeLayout>
+</LinearLayout>
