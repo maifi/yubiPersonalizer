@@ -10,6 +10,13 @@ import iaik.x509.X509Certificate;
 import iaik.x509.X509ExtensionException;
 import iaik.x509.extensions.SubjectKeyIdentifier;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
@@ -32,6 +39,7 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -106,7 +114,7 @@ public class YubikeyPersonalisation extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		keyGen.initialize(512);
+		keyGen.initialize(1024);
 		_keypair = keyGen.generateKeyPair();
 		RSAPrivateKey privKey = (RSAPrivateKey) _keypair.getPrivate();
 		RSAPublicKey pubKey = (RSAPublicKey) _keypair.getPublic();
@@ -116,10 +124,15 @@ public class YubikeyPersonalisation extends Activity {
 		BigInteger exp_pub_bi = pubKey.getPublicExponent();
 		//Remove sign bytes:
 
-
 		mod = Arrays.copyOfRange(mod_bi.toByteArray(),1,mod_bi.toByteArray().length);
 
-		priv_exp = Arrays.copyOfRange(exp_bi.toByteArray(),0,exp_bi.toByteArray().length);
+		byte[] temp = Arrays.copyOfRange(exp_bi.toByteArray(),0,exp_bi.toByteArray().length);
+		
+		if(temp.length == 129)//remove leading zero
+			priv_exp = Arrays.copyOfRange(temp,1,temp.length);
+		else
+			priv_exp = Arrays.copyOfRange(temp,0,temp.length);
+		
 		pub_exp = Arrays.copyOfRange(exp_pub_bi.toByteArray(),0,exp_pub_bi.toByteArray().length);
 
 		System.out.println("Modulus length"+mod.length);
@@ -169,7 +182,7 @@ public class YubikeyPersonalisation extends Activity {
 			System.out.println(cert.toString());
 			cert_der = cert.toByteArray();
 
-			System.out.println(new String(cert_der));
+			//System.out.println(new String(cert_der));
 
 			Toast.makeText(getApplicationContext(), "Certificate created", Toast.LENGTH_LONG).show();
 
@@ -250,6 +263,57 @@ public class YubikeyPersonalisation extends Activity {
 			Log.e("NFC", "Creating Tag failed");
 		}
 
+	}
+	
+	public void clickedExportCert(View view){
+		if(cert_der == null)
+			return;
+		
+	    // Get the directory for the user's public pictures directory. 
+	    File file = new File(Environment.getExternalStoragePublicDirectory(
+	            Environment.DIRECTORY_DOWNLOADS), "certificate_yubi.txt");
+	    
+	    try {
+			BufferedOutputStream outstream = new BufferedOutputStream(new FileOutputStream(file));
+			outstream.write(cert_der);
+			outstream.flush();
+			outstream.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	}
+	
+	public void clickedImportCert(View view){
+		
+	    // Get the directory for the user's public pictures directory. 
+	    File file = new File(Environment.getExternalStoragePublicDirectory(
+	            Environment.DIRECTORY_DOWNLOADS), "certificate_yubi.txt");
+	    
+	    int size = (int) file.length();
+	    byte[] bytes = new byte[size];
+	    try {
+	        BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+	        buf.read(bytes, 0, bytes.length);
+	        buf.close();
+	        
+	        X509Certificate cert = new X509Certificate(bytes);
+	        System.out.println(cert.toString());
+	    } catch (FileNotFoundException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } catch (CertificateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	}
 
 }

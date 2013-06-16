@@ -35,6 +35,22 @@
         android:layout_height="wrap_content"
         android:text="PrivateCompany" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+
+    <EditText
+        android:id="@+id/tf_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="christian.maierhofer@student.tugraz.at" >
+
+        <requestFocus />
+    </EditText>
+
     <Button
         android:id="@+id/genCert"
         android:layout_width="wrap_content"
@@ -43,5 +59,23 @@
         android:layout_marginTop="70dp"
         android:onClick="clickedGenCert"
         android:text="GenerateCert" />
+    
+        <Button
+        android:id="@+id/exportCert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="71dp"
+        android:onClick="clickedExportCert"
+        android:text="Export Cert" />
+        
+        <Button
+        android:id="@+id/importCert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="72dp"
+        android:onClick="clickedImportCert"
+        android:text="Import Cert" />
 
 </LinearLayout>
