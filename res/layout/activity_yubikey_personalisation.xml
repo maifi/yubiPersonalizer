@@ -16,12 +16,11 @@
         android:layout_height="wrap_content"
         android:text="Name" />
 
-    
         <EditText
-        android:id="@+id/tf_name1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meeee" />
+            android:id="@+id/tf_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max Mustermann" />
 
     <TextView
         android:id="@+id/TextView01"
@@ -46,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="christian.maierhofer@student.tugraz.at" >
+        android:text="max@muster.at" >
 
         <requestFocus />
     </EditText>
@@ -56,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:onClick="clickedGenCert"
         android:text="GenerateCert" />
     
@@ -65,17 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="5dp"
         android:onClick="clickedExportCert"
         android:text="Export Cert" />
         
-        <Button
-        android:id="@+id/importCert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="72dp"
-        android:onClick="clickedImportCert"
-        android:text="Import Cert" />
 
 </LinearLayout>

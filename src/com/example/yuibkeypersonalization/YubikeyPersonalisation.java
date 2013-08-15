@@ -171,20 +171,12 @@ public class YubikeyPersonalisation extends Activity {
 				cert.addExtension(ski);
 
 
-			// 			if (extensions != null) {
-			// 				for (int i=0; i<extensions.length; i++)
-			// 					cert.addExtension(extensions[i]);
-			// 				}
-
-
 			cert.sign(AlgorithmID.sha1WithRSAEncryption ,(java.security.PrivateKey) privKey);
 
 			System.out.println(cert.toString());
 			cert_der = cert.toByteArray();
 
-			//System.out.println(new String(cert_der));
-
-			Toast.makeText(getApplicationContext(), "Certificate created", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Certificate created, Touch Yubikey with Phone!", Toast.LENGTH_LONG).show();
 
 
 		} catch (InvalidKeyException e) {
@@ -247,15 +239,6 @@ public class YubikeyPersonalisation extends Activity {
 			
 			Toast.makeText(getApplicationContext(), "Yubikey initialized!", Toast.LENGTH_LONG).show();
 
-			//testing
-			//			Cipher c = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-			//			c.init(Cipher.ENCRYPT_MODE, certifcate.getPublicKey());
-			//			byte[] cipher = c.doFinal("das ist ein test".getBytes());
-			//			System.out.println("cipher jce: "+  Utils.byteArrayToHexString(cipher));
-			//			
-			//			byte[] plain = _yubikey.decrypt(cipher);
-			//			System.out.println("plain: "+new String(plain));
-
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -271,13 +254,15 @@ public class YubikeyPersonalisation extends Activity {
 		
 	    // Get the directory for the user's public pictures directory. 
 	    File file = new File(Environment.getExternalStoragePublicDirectory(
-	            Environment.DIRECTORY_DOWNLOADS), "certificate_yubi.txt");
+	            Environment.DIRECTORY_DOWNLOADS), "yubikey.cert");
 	    
 	    try {
 			BufferedOutputStream outstream = new BufferedOutputStream(new FileOutputStream(file));
 			outstream.write(cert_der);
 			outstream.flush();
 			outstream.close();
+			Toast.makeText(getApplicationContext(), "Certificate exported to Downloads/yubikey.cert", Toast.LENGTH_LONG).show();
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
